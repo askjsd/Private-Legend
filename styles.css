@@ -1,0 +1,35 @@
+:root{--bg:#0b0b0c;--fg:#cfcabf;--dim:#7d7a72;--accent:#c9a45c;--line:#26241f;--btn:#15130f}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--fg)}
+body{font-family:Georgia,'Times New Roman',serif;font-size:17px;line-height:1.6}
+#app{max-width:640px;margin:0 auto;padding:28px 16px 80px}
+.mono{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;letter-spacing:.04em;color:var(--dim)}
+h1{font-weight:400;font-size:28px;letter-spacing:.02em;margin:0 0 8px}
+h3,h4{font-weight:400;margin:18px 0 4px}
+.lede{color:var(--dim)}
+button{font:inherit;color:var(--fg);background:var(--btn);border:1px solid var(--line);padding:10px 14px;border-radius:2px;cursor:pointer;text-align:left}
+button:hover:not(:disabled){border-color:var(--accent);color:#fff}
+button:disabled{opacity:.4;cursor:default}
+button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.ghost{background:transparent;color:var(--dim)}
+.primary{border-color:var(--accent)}
+.topbar{display:flex;justify-content:space-between;border-bottom:1px solid var(--line);padding-bottom:8px;margin-bottom:20px}
+.obs p{margin:0 0 12px;animation:fade .6s ease both}
+.res{color:var(--accent)}
+.panel{border:1px solid var(--line);padding:12px 14px;margin:20px 0}
+.panel p{margin:4px 0}
+.actions button,.opts button{display:block;width:100%;margin:6px 0}
+.cost{float:right;color:var(--dim)}
+.endrow{margin-top:18px}
+.trait{margin:14px 0}
+.tname{display:inline-block;min-width:92px}
+.tblurb{color:var(--dim);font-size:14px}
+.slider{display:flex;gap:12px;align-items:center;margin-top:4px}
+.slider input{flex:1;accent-color:var(--accent)}
+.slider output{width:1.5em;text-align:right}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+.etitle{font-size:24px;font-weight:400;margin:24px 0 8px}
+details{border-top:1px solid var(--line);padding:8px 0}
+summary{cursor:pointer}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+@media (prefers-reduced-motion:reduce){.obs p{animation:none}}
