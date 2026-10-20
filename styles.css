@@ -2,7 +2,7 @@
 *{box-sizing:border-box}
 html,body{margin:0;background:var(--bg);color:var(--fg)}
 body{font-family:Georgia,'Times New Roman',serif;font-size:17px;line-height:1.6}
-#app{max-width:640px;margin:0 auto;padding:28px 16px 80px}
+#app{max-width:860px;margin:0 auto;padding:28px 20px 80px}
 .mono{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;letter-spacing:.04em;color:var(--dim)}
 h1{font-weight:400;font-size:28px;letter-spacing:.02em;margin:0 0 8px}
 h3,h4{font-weight:400;margin:18px 0 4px}
@@ -18,6 +18,13 @@ button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid
 .res{color:var(--accent)}
 .panel{border:1px solid var(--line);padding:12px 14px;margin:20px 0}
 .panel p{margin:4px 0}
+.village{margin:28px 0}.scene{position:relative;overflow:hidden;min-height:260px;border:1px solid #34372e;background:#111923;image-rendering:pixelated}.landscape{display:block;width:100%;height:auto;min-height:260px;max-height:390px;image-rendering:pixelated}.scene-targets{position:absolute;inset:0}.scene-target{position:absolute;display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px 8px;background:rgba(10,12,12,.72);border-color:transparent;color:#e5dbc7;font:13px ui-monospace,Menlo,Consolas,monospace;text-align:center;text-shadow:0 1px #000;min-width:74px}.scene-target:hover{background:rgba(10,12,12,.92)}.scene-target.selected{border-color:var(--accent);box-shadow:0 0 12px rgba(201,164,92,.45)}.scene-roof{font:30px Georgia;color:#d0b779;line-height:1}.scene-target.left{left:11%;top:56%}.scene-target.midleft{left:33%;top:61%}.scene-target.midright{left:61%;top:56%}.scene-target.right{left:77%;top:61%}.scene-target.shrine{left:78%;top:40%}.scene-target.church{left:45%;top:35%}
+.house,.building{min-height:92px;display:flex;align-items:center;gap:12px;padding:14px;background:#171713;border-color:#38352b}.house:hover,.building:hover{transform:translateY(-2px)}
+.house span:last-child{display:flex;flex-direction:column}.house strong,.building strong{font-weight:400}.house small,.building small{display:block;color:var(--dim);font-size:13px}.house-icon{font-size:32px;color:var(--accent)}
+.building{flex-direction:column;align-items:flex-start;justify-content:center}.building>span{font-size:26px;color:var(--accent)}.church{background:#1b1914}.selected{border-color:var(--accent)!important;box-shadow:inset 0 0 0 1px var(--accent)}
+.selected-panel{max-width:620px}.selected-panel h2{font-weight:400;margin:4px 0}.prayer-text{margin-top:16px!important;color:#e5dbc7}.crime{border-left:2px solid #9a5b4b;padding:8px 12px;margin:16px 0!important;color:#d7b5a8}.danger{border-color:#71483f;color:#d5a79a}.action-label{margin:16px 0 4px}
+.house-actions{margin-top:16px}.house-actions summary{padding:6px 0}
+.threats{padding:14px 16px;border:1px solid var(--line);border-top:0;background:#10110f;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.threat>div{display:flex;justify-content:space-between;font-size:14px}.threat progress{width:100%;height:8px;display:block;margin:6px 0 2px;accent-color:#b7765e}.threat progress.risk-hunger{accent-color:#b89a58}.threat progress.risk-unrest{accent-color:#8e7668}.small-action{padding:5px 7px;font-size:13px;width:100%;margin-top:6px}.scene+.threats p{grid-column:1/-1;margin:0}.danger{border-color:#71483f;color:#d5a79a}
 .actions button,.opts button{display:block;width:100%;margin:6px 0}
 .cost{float:right;color:var(--dim)}
 .endrow{margin-top:18px}
@@ -29,7 +36,84 @@ button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid
 .slider output{width:1.5em;text-align:right}
 .row{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
 .etitle{font-size:24px;font-weight:400;margin:24px 0 8px}
+.trait-results{max-width:540px;margin:20px 0 34px}.trait-results h2{font-weight:400}.trait-head,.trait-result{display:grid;grid-template-columns:1fr 90px 90px;gap:10px;padding:6px 4px;border-bottom:1px solid var(--line)}.trait-head{color:var(--dim);font:13px ui-monospace,Menlo,Consolas,monospace}.trait-result span:nth-child(n+2),.trait-head span:nth-child(n+2){text-align:right;font-variant-numeric:tabular-nums}
 details{border-top:1px solid var(--line);padding:8px 0}
 summary{cursor:pointer}
 @keyframes fade{from{opacity:0}to{opacity:1}}
 @media (prefers-reduced-motion:reduce){.obs p{animation:none}}
+@media(max-width:580px){.threats{grid-template-columns:1fr}.scene{min-height:230px}.landscape{min-height:230px}.scene-target{font-size:11px;min-width:58px;padding:3px}.scene-roof{font-size:24px}.scene-target.left{left:7%}.scene-target.midleft{left:30%}.scene-target.midright{left:57%}.scene-target.right{left:75%}}
+
+/* Compact, text-only village screen */
+#app.game-screen{width:min(1120px,100%);max-width:none;height:100dvh;min-height:0;overflow:hidden;padding:14px 18px 12px;display:flex;flex-direction:column;gap:8px}
+.game-screen .topbar{margin-bottom:0;flex:none}.game-screen .obs{max-height:42px;overflow:auto;flex:none}.game-screen .obs p{margin:0 0 4px}
+.game-screen>.panel{margin:0;max-height:142px;overflow:auto;flex:none}.game-board{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:14px;flex:1;min-height:250px;overflow:hidden}.game-left{display:flex;flex-direction:column;min-height:0;overflow-y:auto}.game-screen .village{margin:0;flex:1;min-height:0}.ascii-scene{border:1px solid var(--line);background:#10120f;padding:10px 12px;color:#b9b59e}.ascii-sky,.ascii-road{margin:0;overflow:hidden;white-space:pre;font:14px/1.25 ui-monospace,Menlo,Consolas,monospace;color:#8f967a}.ascii-sky{padding:2px 0 8px}.ascii-road{text-align:center;color:#766f5e;padding-top:8px}.ascii-houses{display:flex;align-items:flex-end;justify-content:space-around;gap:10px;flex-wrap:wrap;padding:4px 6px}.ascii-house{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:7px 9px;background:transparent;border:1px solid transparent;border-radius:0;white-space:pre;font:14px/1.15 ui-monospace,Menlo,Consolas,monospace;color:#d1c6a5;text-align:center}.ascii-house:hover{background:#171913}.ascii-house.selected{border-color:var(--accent)!important;box-shadow:none}.ascii-house.building{color:#b5a57c}.game-screen .threats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;padding:8px 10px;margin-top:8px;border:1px solid var(--line);background:#0f100e}.game-screen .threats>p{grid-column:1/-1;margin:0}.game-screen .threat{min-width:0}.game-screen .threat>div{font:12px ui-monospace,Menlo,Consolas,monospace}.game-screen .threat progress{margin:3px 0}.game-screen .small-action{font-size:11px;padding:4px 5px;margin-top:3px}.popup{min-width:0;min-height:0;overflow-y:auto;align-self:stretch;margin-top:26px;padding:12px;border:1px solid #403a2c;background:#11110f;box-shadow:0 8px 28px #0008}.popup:before{content:'Selected';display:block;margin-bottom:8px;font:11px ui-monospace,Menlo,Consolas,monospace;letter-spacing:.08em;color:var(--accent);text-transform:uppercase}.popup .panel{margin:0;padding:0;border:0}.popup .panel h2{margin:2px 0;font-size:22px}.popup .actions button,.popup .house-actions button{font-size:14px;padding:7px 9px}.game-screen .endrow{flex:none;display:flex;align-items:center;justify-content:space-between;margin:0}.game-screen .endrow p{margin:0}.game-screen>details{flex:none}.game-screen>details:not([open]){font-size:12px;padding:2px 0}
+@media(max-width:760px){#app.game-screen{height:auto;min-height:100dvh;overflow:visible}.game-board{grid-template-columns:1fr;overflow:visible}.game-left{overflow:visible}.popup{margin:0;max-height:44vh}.ascii-sky{font-size:11px}.game-screen .threats{grid-template-columns:1fr}}
+
+/* The selected house expands in place, beside its ASCII drawing. */
+#app.game-screen{height:100dvh;max-width:1160px;padding:12px 18px;gap:6px;overflow:hidden}
+.game-screen .village{flex:1;min-height:0;overflow:auto;border:1px solid var(--line);padding:10px 12px;margin:0}
+.ascii-sky{font-size:13px;line-height:1.15;padding:0 0 4px;color:#9b9a88}
+.ascii-houses{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:6px 0}
+.ascii-entry{display:inline-flex;align-items:center;gap:8px;max-width:100%;vertical-align:top}
+.ascii-house{flex:none;min-width:90px;padding:4px 6px;line-height:1.1;gap:0;color:#d0c6a9;font-size:13px}
+.ascii-house span{display:block}.ascii-house small{margin-top:3px;color:var(--dim);font-size:11px}.ascii-house.building{color:#c7b277}
+.inline-info{width:min(270px,55vw);max-height:240px;overflow:auto;padding:6px 10px;border-left:1px solid var(--accent);background:transparent;font-size:14px}
+.inline-info p{margin:2px 0 6px}.inline-info .actions{display:flex;flex-direction:column;gap:3px}.inline-info .actions button{width:100%;margin:0;padding:5px 7px;font-size:12px}.inline-info details{margin-top:4px;padding:4px 0}.inline-info details button{display:block;width:100%;text-align:left}
+.game-screen .threats{flex:none;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;padding:6px 10px;margin:0}.game-screen .threats>p{grid-column:1/-1;margin:0}.game-screen>.lede{flex:none;margin:0;font-size:14px}.game-screen .endrow{flex:none;margin:0}.game-screen>details{flex:none;max-height:30px;overflow:auto}.event-panel{margin:0!important}.event-panel .opts button{padding:5px 8px;font-size:13px}
+@media(max-width:760px){#app.game-screen{height:auto;min-height:100dvh;overflow:visible}.inline-info{width:min(270px,60vw);max-height:none}.ascii-houses{align-items:flex-start}.game-screen .threats{grid-template-columns:1fr}.game-screen>details{max-height:none}}
+
+/* Keep play as one continuous text scene; let the page grow instead of clipping its top. */
+#app.game-screen{height:auto;min-height:100dvh;overflow:visible;display:flex;flex-direction:column;gap:8px;padding:18px 22px 36px}
+.game-screen .topbar{flex:none;margin:0}.game-screen .obs{flex:none;max-height:none;overflow:visible;margin:0 0 4px}.game-screen .obs p{animation:none}
+.game-screen .village{flex:none;min-height:0;overflow:visible;border:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:10px 0;margin:0;background:transparent}
+.game-screen .threats{border:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:transparent;padding:8px 0;margin:0}
+.game-screen .event-panel{border:0;border-left:2px solid var(--accent);padding:4px 12px;margin:4px 0!important;background:transparent}
+.game-screen .endrow{flex:none;margin:0}
+.game-screen>details{flex:none;max-height:none;overflow:visible}
+.inline-info{width:min(220px,48vw);max-height:190px;padding:4px 8px;font-size:12px}
+.inline-info .belief-line{margin:0 0 3px;font-size:11px;letter-spacing:0}
+.inline-info .compact-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:3px}
+.inline-info .compact-actions button{width:100%;padding:3px 5px;font-size:11px;text-align:center;line-height:1.25}
+.inline-info .actions button{margin:0}
+.inline-info .house-actions{margin-top:5px}
+.game-screen .social-status{flex:none;margin:0;overflow-wrap:anywhere;font-size:11px}
+@media(max-width:760px){.inline-info{width:min(210px,48vw)}}
+
+/* House slots keep the ASCII map fixed when a detail panel is selected. */
+.ascii-houses{display:grid;grid-template-columns:repeat(auto-fit,minmax(350px,1fr));align-items:start;justify-content:initial;gap:14px 22px;padding:10px 4px}
+.ascii-entry{display:grid;grid-template-columns:92px minmax(0,1fr);align-items:start;gap:10px;width:100%;min-width:0;min-height:220px}
+.ascii-house{width:92px;min-height:108px;padding:6px 2px;border:0!important;box-shadow:none!important;background:transparent!important;transition:none}
+.ascii-house:hover,.ascii-house.selected{font-weight:700;color:#fff}
+.ascii-house:focus-visible{outline:1px dotted var(--accent);outline-offset:2px}
+.inline-info{box-sizing:border-box;width:100%;max-height:220px;min-height:200px;overflow:auto;padding:3px 2px;border:0!important;border-left:0!important;background:transparent!important;box-shadow:none!important;font-size:12px}
+.inline-info-placeholder{visibility:hidden;pointer-events:none}
+.inline-info p{overflow-wrap:anywhere}
+.inline-info .crime{border-left:0;padding-left:0}
+.locked-house{opacity:.38;color:#898a83!important;filter:grayscale(1);cursor:not-allowed}
+.locked-house small{color:#777b76!important}
+.locked-info{visibility:visible;color:#777b76;opacity:.72}
+.locked-info .mono{font-size:11px}
+.faithless-house,.deceased-house{opacity:.3;color:#777!important;filter:grayscale(1);cursor:default}
+.faithless-house small,.deceased-house small{color:#72746f!important}
+.lost-belief{color:#9b8776!important}
+.deceased-info{visibility:visible;color:#777b76;opacity:.7}
+.deceased-info .mono{font-size:11px}
+.inline-info .actions button{background:transparent;border:0;border-radius:0;padding:3px 2px;color:var(--fg);text-align:left;box-shadow:none}
+.inline-info .actions button:hover:not(:disabled){background:transparent;border-color:transparent;color:#fff;font-weight:700}
+.inline-info .actions button:focus-visible{outline:1px dotted var(--accent);outline-offset:1px}
+.inline-info .actions button .cost{float:none;margin-left:.45em;color:var(--dim);font-weight:400}
+.game-head{display:grid;grid-template-columns:minmax(0,1fr) 224px;gap:14px;align-items:start;flex:none}
+.game-head-main{min-width:0}
+.game-head .threats{box-sizing:border-box;display:grid;grid-template-columns:1fr;gap:5px;width:224px;padding:7px 9px;border:1px solid var(--line);background:#10110f}
+.game-head .threats>p{grid-column:1;margin:0;font-size:11px;line-height:1.3}
+.game-head .threat{min-width:0;display:grid;grid-template-columns:1fr;gap:1px}
+.game-head .threat>div{font-size:11px;line-height:1.2}
+.game-head .threat progress{width:100%;height:5px;margin:2px 0;display:block}
+.game-head .small-action{width:auto;margin:1px 0 0;padding:1px 0;border:0;background:transparent;font-size:10px;line-height:1.25}
+.game-head .small-action:hover:not(:disabled){border:0;background:transparent;font-weight:700}
+@media(max-width:760px){.ascii-houses{grid-template-columns:minmax(0,1fr)}.ascii-entry{grid-template-columns:82px minmax(0,1fr);min-height:220px}.ascii-house{width:82px}.inline-info{width:100%;max-height:220px}}
+@media(max-width:760px){.game-head{grid-template-columns:minmax(0,1fr)}.game-head .threats{width:100%;grid-template-columns:1fr}.game-head .threats>p{grid-column:1}}
+.game-head .threat progress,.game-head .threat progress.risk-hunger,.game-head .threat progress.risk-sickness,.game-head .threat progress.risk-unrest{accent-color:#b9a77a}
+.ending-factors{max-width:760px;margin:24px 0 30px;padding-top:10px;border-top:1px solid var(--line)}.ending-factors h2{font-weight:400;font-size:18px}.ending-factors p{font-size:14px;line-height:1.55}.ending-factors strong{color:var(--accent)}
+.ascii-houses,.map-expansions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));align-items:start;gap:10px 14px;padding:6px 0}.ascii-entry{display:flex;width:100%;min-width:0;align-items:flex-start;gap:8px}.ascii-entry .ascii-house{min-width:92px;width:92px}.ascii-entry .inline-info{min-width:0;padding:2px;max-height:210px}.ascii-entry .inline-info button{font-size:11px;padding:3px 1px}.undiscovered-slot{min-height:220px}.latest-action{font-weight:700}
+.page-tabs{display:flex;gap:18px;border-bottom:1px solid var(--line);padding:5px 0}.page-tabs button{border:0;background:transparent;color:var(--dim);padding:3px 0}.page-tabs button.active,.page-tabs button:hover{color:var(--fg);font-weight:700}.villages-page{padding:8px 0}.page-intro{margin:0 0 8px;color:var(--dim)}.village-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,290px),1fr));gap:18px}.village-card{min-width:0;border-top:1px solid var(--line);padding:8px 10px 12px 0}.village-card h2{font-size:18px;font-weight:400;margin:0 0 6px}.village-card p{font-size:13px;line-height:1.4;margin:5px 0}.village-card .village-request{font-style:italic;color:var(--fg);margin:12px 0}.village-choices{display:flex;flex-direction:column;gap:3px;margin-top:8px}.village-choices button,.inline-info button[data-page]{width:100%;border:0;border-radius:0;background:transparent;padding:5px 2px;text-align:left;color:var(--fg)}.village-choices button:hover:not(:disabled),.inline-info button[data-page]:hover{font-weight:700;background:transparent}.village-choices .cost{float:right;color:var(--dim);font-weight:400}
